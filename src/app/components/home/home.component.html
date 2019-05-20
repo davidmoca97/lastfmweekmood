@@ -1,0 +1,18 @@
+<input
+  type="text"
+  id="userName"
+  name="userName"
+  type="search"
+  [(ngModel)]="userName"
+  autofocus
+/>
+
+<button type="button" (click)="searchUser()" [disabled]="loading">Search</button><br/>
+
+<div *ngFor="let item of info">
+  <img [src]="item[0].image[2]['#text']">
+  <h2>{{ item[0].day }}</h2>
+  <h3>{{ item[0].album['#text'] }}</h3>
+  <h4>{{ item[0].artist['#text'] }}</h4>
+  <h4>{{ item[0].name }}</h4>
+</div>
