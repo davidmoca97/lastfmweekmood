@@ -1,18 +1,53 @@
-<input
-  type="text"
-  id="userName"
-  name="userName"
-  type="search"
-  [(ngModel)]="userName"
-  autofocus
-/>
+<div class="container">
+  <div class="columns">
+    <div class="column">
+      <div class="input-group search-div">
+          <input
+          type="text"
+          id="userName"
+          name="userName"
+          type="search"
+          placeholder="username"
+          class="form-input input-custom"
+          [(ngModel)]="userName"
+          (keyup.enter)="searchUser()"
+          autofocus
+        />
+        <button type="button" (click)="searchUser()"
+           [disabled]="loading" 
+           class="btn btn-custom input-group-btn">Search</button>
+        <br/>
+      </div>
+      <p *ngIf="this.error" 
+       class="text-error text-bold animated fadeIn"
+       style="margin-left: 20px;">{{ this.errorMessage }}</p>     
+      </div>
+  </div>
+</div>
 
-<button type="button" (click)="searchUser()" [disabled]="loading">Search</button><br/>
+<div *ngIf="this.loading" class="spinner"></div>
 
-<div *ngFor="let item of info">
+<div *ngIf="!this.loading" class="container">
+  <div class="columns cards-list">
+      <div class="column col-4 col-sm-12 col-md-6 animated zoomIn" *ngFor="let item of info">
+          <div class="card no-border">
+              <div class="card_image"> <img [src]="item[0].image[3]['#text']" /> </div>
+            </div>
+            <pre class="card_title text-center text-ellipsis">
+              <p class="text-bold day-of-week">
+                  {{ item[0].day }}
+                </p>
+                <!-- {{ item[0].day }}<br> -->
+              {{ item[0].name ? item[0].name : "No track" }}<br>
+              {{ item[0].freq ? item[0].freq : "-" }} plays<br>
+            </pre>
+      </div>
+  </div>
+</div>
+<!-- <div *ngFor="let item of info">
   <img [src]="item[0].image[2]['#text']">
   <h2>{{ item[0].day }}</h2>
   <h3>{{ item[0].album['#text'] }}</h3>
   <h4>{{ item[0].artist['#text'] }}</h4>
   <h4>{{ item[0].name }}</h4>
-</div>
+</div> -->

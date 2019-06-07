@@ -46,11 +46,13 @@ export class LastfmService {
     oneWeekAgo.setSeconds(0);
     oneWeekAgo.setHours(0);
     const oneWeekAgoUnix: number = moment.utc(oneWeekAgo).unix();
-    console.log(oneWeekAgoUnix);
 
     return this.getQuery(`?method=user.getrecenttracks&limit=200&from=${oneWeekAgoUnix}&user=${userName}&page=${1}`)
     .pipe(
       mergeMap( data => {
+        if (data['recenttracks']['@attr'].total == 0) {
+          throw new Error("No tracks were found for this user");
+        }
         const totalPages: number = parseInt(data['recenttracks']['@attr'].totalPages, 10);
         // const pages: number[] = Array.from(Array(totalPages).keys()).map(x => x + 2);
         const pages: number[] = [];

@@ -13,11 +13,14 @@ export class HomeComponent implements OnInit {
   data: any;
   loading: boolean;
   info: any[];
+  error: boolean;
+  errorMessage: string;
 
   constructor(private lastfm: LastfmService) {
     this.userName = 'davidmoca';
     this.loading = false;
     this.data = [];
+    this.error = false;
   }
 
   ngOnInit() {
@@ -25,18 +28,34 @@ export class HomeComponent implements OnInit {
   }
 
   searchUser() {
+    if (this.loading) {
+      return
+    }
+    this.data = [];
     this.loading = true;
     console.log('Searching four user ' + this.userName);
     this.lastfm.getUserWeekScrobbles(this.userName)
       .subscribe((data) => {
         this.data = [ ...this.data, ...data ];
-      }, null,
-        () => {
+      }, 
+      (err) => { // Catch error
+        this.loading = false;
+        this.error = true;
+        this.info = [];
+        if (err.status) { // If it's an http error, show other message
+          this.errorMessage = "API error, try again";
+          return
+        }
+        this.errorMessage = err.message;
+        console.error(err);
+      },
+        () => { // When observable ends
           const week = this.splitIntoDays();
           const info = this.getFrequents(week);
           this.info = info;
           console.log(info);
           this.loading = false;
+          this.error = false;
         }
       );
   }
