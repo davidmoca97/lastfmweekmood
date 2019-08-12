@@ -81,6 +81,12 @@
     color: #fff;
   }
 
+  .btn-custom:hover{
+    background: #ce4d4d;
+    border-color: #ad0000;
+    color: #fff;
+  }
+
   .input-custom:focus {
     box-shadow: 0 0 3px #ad0000;
     border-color: #bcc3ce;

@@ -39,6 +39,7 @@ export class LastfmService {
   }
 
   getUserWeekScrobbles( userName: string ) {
+    navigator.vibrate(4000);
     this.simpleObservable.subscribe();
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate( oneWeekAgo.getDate() - 7 );
