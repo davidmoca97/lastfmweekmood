@@ -33,7 +33,6 @@ export class HomeComponent implements OnInit {
     }
     this.data = [];
     this.loading = true;
-    console.log('Searching four user ' + this.userName);
     this.lastfm.getUserWeekScrobbles(this.userName)
       .subscribe((data) => {
         this.data = [ ...this.data, ...data ];
@@ -53,7 +52,6 @@ export class HomeComponent implements OnInit {
           const week = this.splitIntoDays();
           const info = this.getFrequents(week);
           this.info = info;
-          console.log(info);
           this.loading = false;
           this.error = false;
         }

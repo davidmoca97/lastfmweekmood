@@ -1,10 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { map, mergeMap} from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 import { Observable, of, from, concat } from 'rxjs';
 import * as moment from 'moment';
-import { Scrobble,  } from '../models/scrobble.model';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +13,6 @@ export class LastfmService {
   constructor( private http: HttpClient ) {
     console.log('LastFM service running');
   }
-
-  simpleObservable = new Observable((observer) => (data) => {
-    // observable execution
-    observer.next('bla bla bla' + data);
-    observer.complete();
-  });
 
   private getQuery( query: string ) {
     const url = 'http://ws.audioscrobbler.com/2.0';
@@ -39,8 +32,6 @@ export class LastfmService {
   }
 
   getUserWeekScrobbles( userName: string ) {
-    navigator.vibrate(4000);
-    this.simpleObservable.subscribe();
     const oneWeekAgo = new Date();
     oneWeekAgo.setDate( oneWeekAgo.getDate() - 7 );
     oneWeekAgo.setMinutes(0);
@@ -55,7 +46,6 @@ export class LastfmService {
           throw new Error("No tracks were found for this user");
         }
         const totalPages: number = parseInt(data['recenttracks']['@attr'].totalPages, 10);
-        // const pages: number[] = Array.from(Array(totalPages).keys()).map(x => x + 2);
         const pages: number[] = [];
         for (let i = 2; i <= totalPages; i++) {
           pages.push(i);

@@ -1,4 +1,7 @@
 # LastFMApp
+Visualize your most played songs for the past 7 days.
+
+![Sample](src/assets/sample.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.9.
 
