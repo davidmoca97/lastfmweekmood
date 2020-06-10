@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  LAST_FM_API_KEY: 'f53ce30cdaa7572b186d51f8e867c81f',
+  LAST_FM_API_KEY: '',
 };
 
 /*
